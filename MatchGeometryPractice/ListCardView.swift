@@ -28,46 +28,50 @@ struct ListCardView: View {
     
     @State var selectedPerson: Person? = nil
     
+    private var itemList: some View {
+        VStack {
+     
+            List(items) { item in
+                Button {
+                    selectedPerson = item
+                    withAnimation {
+                        detailsExpand.toggle()
+                        
+                    }
+                } label: {
+                    
+                    HStack {
+                        Image(item.imageString)
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+
+                            .clipShape(Circle())
+                            .matchedGeometryEffect(id: "\(item.id)-photo", in: personNamespace)
+                            .frame(width: 80, height: 80, alignment: .center)
+                            
+                        
+                        VStack(alignment: .leading, spacing: 8) {
+                            Text(item.name)
+                            Text("\(item.position), \(item.company)")
+                        }
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding()
+                    
+                    
+                }
+
+            }
+            
+            .navigationBarHidden(detailsExpand)
+        }
+    }
+    
     var body: some View {
         NavigationView {
             ZStack(alignment: .top) {
-                VStack {
-             
-                    List(items) { item in
-                        Button {
-                            selectedPerson = item
-                            withAnimation {
-                                detailsExpand.toggle()
-                                
-                            }
-                        } label: {
-                            
-                            HStack {
-                                Image(item.imageString)
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fill)
-
-                                    .clipShape(Circle())
-                                    .matchedGeometryEffect(id: "\(item.id)-photo", in: personNamespace)
-                                    .frame(width: 80, height: 80, alignment: .center)
-                                    
-                                
-                                VStack(alignment: .leading, spacing: 8) {
-                                    Text(item.name)
-                                    Text("\(item.position), \(item.company)")
-                                }
-                            }
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding()
-                            
-                            
-                        }
-
-                    }
-                    
-                    .navigationBarHidden(detailsExpand)
-                }
                 
+                itemList
                 
                 if detailsExpand, let person = selectedPerson {
                     VStack(spacing: 0) {
