@@ -15,14 +15,82 @@ struct ContentView: View {
     @State var cardInsertionTransitionPickerValue: String = "slide"
     @State var cardRemovalTransitionPickerValue: String = "slide"
     
+    @State var largeCardInsertionTransitionPickerValue: String = "slide"
+    @State var largeCardRemovalTransitionPickerValue: String = "slide"
+    
     @State private var cardInsertionTransition: AnyTransition = .slide
     @State private var cardRemovalTransition: AnyTransition = .slide
     
+    @State private var largeCardInsertionTransition: AnyTransition = .slide
+    @State private var largeCardRemovalTransition: AnyTransition = .slide
+    
     @State private var largeCardHeight: CGFloat = 600
+    
+    private var largeCardRemovalTransitionPicker: some View {
+        VStack(alignment: .leading) {
+            Text("Large Card Removal Transition")
+                .font(.caption)
+            Picker(selection: $largeCardRemovalTransitionPickerValue) {
+                Text("slide").tag("slide")
+                Text("opacity").tag("opacity")
+                Text("scale").tag("scale")
+                
+            } label: {
+                Text("Card Transition")
+            }
+            .pickerStyle(.segmented)
+            .onChange(of: largeCardRemovalTransitionPickerValue) { newValue in
+                switch newValue {
+                case "slide":
+                    largeCardRemovalTransition = .slide
+                case "opacity":
+                    largeCardRemovalTransition = .opacity
+                    
+                case "scale":
+                    largeCardRemovalTransition = AnyTransition.scale(scale: 0)
+                    
+                default:
+                    largeCardRemovalTransition = .opacity
+                    
+                }
+            }
+        }
+    }
+    
+    private var largeCardInsertionTransitionPicker: some View {
+        VStack(alignment: .leading) {
+            Text("Large Card Removal Transition")
+                .font(.caption)
+            Picker(selection: $largeCardInsertionTransitionPickerValue) {
+                Text("slide").tag("slide")
+                Text("opacity").tag("opacity")
+                Text("scale").tag("scale")
+                
+            } label: {
+                Text("Card Transition")
+            }
+            .pickerStyle(.segmented)
+            .onChange(of: largeCardInsertionTransitionPickerValue) { newValue in
+                switch newValue {
+                case "slide":
+                    largeCardInsertionTransition = .slide
+                case "opacity":
+                    largeCardInsertionTransition = .opacity
+                    
+                case "scale":
+                    largeCardInsertionTransition = AnyTransition.scale(scale: 1)
+                    
+                default:
+                    largeCardInsertionTransition = .opacity
+                    
+                }
+            }
+        }
+    }
     
     private var cardRemovalTransitionPicker: some View {
         VStack(alignment: .leading) {
-            Text("Small Card Insertion Transition")
+            Text("Small Card Removal Transition")
                 .font(.caption)
             Picker(selection: $cardRemovalTransitionPickerValue) {
                 Text("slide").tag("slide")
@@ -85,8 +153,18 @@ struct ContentView: View {
     var body: some View {
         
         VStack(alignment: .center) {
-           cardInsertionTransitionPicker
+            cardInsertionTransitionPicker
                 .padding(.horizontal)
+            
+            cardRemovalTransitionPicker
+                .padding(.horizontal)
+            
+            largeCardRemovalTransitionPicker
+                .padding(.horizontal)
+            
+            largeCardInsertionTransitionPicker
+                .padding(.horizontal)
+        
             
             Text("Large card height \(largeCardHeight)")
             Slider(value: $largeCardHeight, in: 50...600)
@@ -174,7 +252,7 @@ struct ContentView: View {
             
             
         }
-        .transition(.asymmetric(insertion: .scale(scale: 1), removal: .scale(scale: 0)))
+        .transition(.asymmetric(insertion: largeCardInsertionTransition, removal: largeCardRemovalTransition))
         .matchedGeometryEffect(id: "card", in: cardAnimation)
         .frame(width: UIScreen.main.bounds.width - 48, height: largeCardHeight, alignment: .center)
         .clipShape(RoundedRectangle(cornerRadius: 16))
