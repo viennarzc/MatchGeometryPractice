@@ -30,13 +30,18 @@ struct ContentView: View {
                             
                         }
                     
+                    VStack {
+                        Spacer()
+                        Text("Elon Musk")
+                            .font(.title2)
+                            .matchedGeometryEffect(id: "name", in: photoAnimation)
+                            .frame(width: 200, height: 60, alignment: .center)
+                            .background(.ultraThinMaterial)
+                            .clipShape(RoundedRectangle(cornerRadius: 8))
+                    }
+                    .padding(.vertical, 24)
                     
-                    Text("Elon Musk")
-                        .font(.title2)
-                        .matchedGeometryEffect(id: "name", in: photoAnimation)
-                        .frame(width: 200, height: 60, alignment: .center)
-                        .padding()
-                        .background(.thickMaterial)
+                    
                 }
             } else {
                 VStack {
