@@ -11,7 +11,17 @@ import SwiftUI
 struct MatchGeometryPracticeApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            TabView {
+                ContentView()
+                    .tabItem {
+                        Text("Profile card")
+                    }
+                ListCardView()
+                    .tabItem {
+                        Text("List Card")
+                    }
+            
+            }
         }
     }
 }
