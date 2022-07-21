@@ -8,9 +8,61 @@
 import SwiftUI
 
 struct ContentView: View {
+    @Namespace private var photoAnimation
+    @State private var enlarge: Bool = false
+    
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        
+        ZStack {
+            if enlarge {
+                ZStack {
+                    Image("elonmusk")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .matchedGeometryEffect(id: "photo", in: photoAnimation)
+                        .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .center)
+                        .aspectRatio(contentMode: .fill)
+                        .onTapGesture {
+                            withAnimation(.spring()) {
+                                enlarge.toggle()
+                                
+                            }
+                            
+                        }
+                    
+                    
+                    Text("Elon Musk")
+                        .font(.title2)
+                        .matchedGeometryEffect(id: "name", in: photoAnimation)
+                        .frame(width: 200, height: 60, alignment: .center)
+                        .padding()
+                        .background(.thickMaterial)
+                }
+            } else {
+                VStack {
+                    Image("elonmusk")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .matchedGeometryEffect(id: "photo", in: photoAnimation)
+                        .clipShape(Circle())
+                        .frame(width: 120, height: 120, alignment: .center)
+                        .onTapGesture {
+                            withAnimation(.spring()) {
+                                enlarge.toggle()
+                                
+                            }
+                    }
+                    
+                    Text("Elon Musk")
+                        .font(.body)
+                        .matchedGeometryEffect(id: "name", in: photoAnimation)
+                        .frame(width: 200, height: 60, alignment: .center)
+                }
+                
+            }
+            
+            
+        }
     }
 }
 
