@@ -8,79 +8,55 @@
 import SwiftUI
 
 struct ContentView: View {
-    @Namespace private var photoAnimation
+    
     @Namespace private var cardAnimation
-    @State private var enlarge: Bool = false
     @State var cardEnlarge: Bool = false
     
-    private var largePhoto: some View {
-        ZStack {
-            Image("elonmusk")
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .matchedGeometryEffect(id: "photo", in: photoAnimation)
-                .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .center)
-                .aspectRatio(contentMode: .fill)
-                .onTapGesture {
-                    withAnimation(.spring()) {
-                        enlarge.toggle()
-                        
-                    }
-                    
-                }
-            
-            VStack {
-                Spacer()
-                Text("Elon Musk")
-                    .font(.title2)
-                    .matchedGeometryEffect(id: "name", in: photoAnimation)
-                    .frame(width: 200, height: 60, alignment: .center)
-                    .background(.ultraThinMaterial)
-                    .clipShape(RoundedRectangle(cornerRadius: 8))
-            }
-            .padding(.vertical, 24)
-            
-            
-        }
-    }
+    @State var cardInsertionTransitionPickerValue: String = "slide"
+    @State private var cardInsertionTransition: AnyTransition = .slide
     
-    private var smallPhoto: some View {
-        VStack {
-            Group {
-                Image("elonmusk")
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .matchedGeometryEffect(id: "photo", in: photoAnimation)
-                    .clipShape(Circle())
-                    .frame(width: 120, height: 120, alignment: .center)
-                    .onTapGesture {
-                        withAnimation(.spring()) {
-                            enlarge.toggle()
-                            
-                        }
-                    }
-                Text("Elon Musk")
-                    .font(.body)
-                    .matchedGeometryEffect(id: "name", in: photoAnimation)
-                    .frame(width: 300, height: 30, alignment: .center)
+    private var cardInsertionTransitionPicker: some View {
+        Picker(selection: $cardInsertionTransitionPickerValue) {
+            Text("slide").tag("slide")
+            Text("opacity").tag("opacity")
+            Text("scale").tag("scale")
+            
+        } label: {
+            Text("Card Transition")
+        }
+        .pickerStyle(.segmented)
+        .onChange(of: cardInsertionTransitionPickerValue) { newValue in
+            switch newValue {
+            case "slide":
+                cardInsertionTransition = .slide
+            case "opacity":
+                cardInsertionTransition = .opacity
+                
+            case "scale":
+                cardInsertionTransition = .scale
+                
+            default:
+                cardInsertionTransition = .opacity
                 
             }
-            
-            
-            
         }
     }
     
     var body: some View {
         
-        VStack {
+        VStack(alignment: .center) {
+           cardInsertionTransitionPicker
+            
             if cardEnlarge {
                 largeCard
             } else {
                 card
+                    .padding()
                     
             }
+
         }
+        .frame(maxWidth: .infinity)
      
     }
     
@@ -90,6 +66,7 @@ struct ContentView: View {
                 .resizable()
                 .aspectRatio(contentMode: .fill)
                 .clipShape(Circle())
+                .matchedGeometryEffect(id: "card", in: cardAnimation)
                 .frame(width: 60, height: 60, alignment: .center)
 
             
@@ -102,12 +79,13 @@ struct ContentView: View {
                 Text("CEO, Tesla")
                     .font(.subheadline)
                     .foregroundColor(.secondary)
+                    
             }
               
         }
-        .transition(.asymmetric(insertion: .scale(scale: 1.4, anchor: .center), removal: .opacity))
-        .matchedGeometryEffect(id: "card", in: cardAnimation)
+        .transition(.asymmetric(insertion: cardInsertionTransition, removal: .scale))
         .padding()
+        .frame(maxWidth: .infinity)
         .background()
         .clipShape(RoundedRectangle(cornerRadius: 16))
         .shadow(color: .gray, radius: 10, x: 1, y: 5)
@@ -137,13 +115,15 @@ struct ContentView: View {
                 Text("CEO, Tesla")
                     .font(.subheadline)
                     .foregroundColor(.white.opacity(0.6))
+
             }
+            
             .padding(.vertical, 16)
             
             
             
         }
-        .transition(.asymmetric(insertion: .scale(scale: 1), removal: .scale(scale: 0.5)))
+        .transition(.asymmetric(insertion: .scale(scale: 1), removal: .scale(scale: 0)))
         .matchedGeometryEffect(id: "card", in: cardAnimation)
         .frame(width: UIScreen.main.bounds.width - 48, height: 600, alignment: .center)
         .clipShape(RoundedRectangle(cornerRadius: 16))
