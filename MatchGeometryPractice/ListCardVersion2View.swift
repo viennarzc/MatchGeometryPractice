@@ -1,5 +1,5 @@
 //
-//  SwiftUIView.swift
+//  ListCardVersion2View.swift
 //  MatchGeometryPractice
 //
 //  Created by Viennarz Curtiz on 7/21/22.
@@ -7,16 +7,7 @@
 
 import SwiftUI
 
-struct Person: Identifiable, Hashable {
-    var id: String { name }
-    let name: String
-    let position: String
-    let company: String
-    let description: String
-    let imageString: String
-}
-
-struct ListCardView: View {
+struct ListCardVersion2View: View {
     @State var detailsExpand: Bool = false
     @Namespace private var personNamespace
     
@@ -25,6 +16,8 @@ struct ListCardView: View {
         Person(name: "Jeff bezos", position: "CEO", company: "Amazon", description: "", imageString: "jeffbezos"),
         Person(name: "Elon Musk", position: "CEO", company: "Tesla", description: "", imageString: "elonmusk"),
     ]
+    
+    private var desc = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
     
     @State var selectedPerson: Person? = nil
     
@@ -47,6 +40,7 @@ struct ListCardView: View {
                             .transition(.asymmetric(insertion: .opacity, removal: .opacity))
                             .matchedGeometryEffect(id: "\(item.id)-photo", in: personNamespace)
                             .frame(width: 80, height: 80, alignment: .center)
+                            
                         
                         VStack(alignment: .leading, spacing: 8) {
                             Text(item.name)
@@ -68,31 +62,6 @@ struct ListCardView: View {
     }
     
     fileprivate func expandView(_ person: Person) -> some View {
-         VStack(spacing: 0) {
-            
-            Spacer()
-                .frame(height: 64)
-                .background()
-            HStack {
-                Spacer()
-                
-                Button {
-                    withAnimation(.spring()) {
-                        detailsExpand = false
-                    }
-                    
-                } label: {
-                    Image(systemName: "xmark.circle.fill")
-                        .font(.largeTitle)
-                        .foregroundColor(.gray)
-                        .contentShape(Rectangle())
-                    
-                }
-                .buttonStyle(.plain)
-                
-            }
-            .background()
-            
             ScrollView(.vertical) {
                 VStack {
                     
@@ -102,22 +71,50 @@ struct ListCardView: View {
                             Image(person.imageString)
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)
-                                .clipShape(Circle())
                                 .matchedGeometryEffect(id: "\(person.id)-photo", in: personNamespace)
-                                .frame(maxWidth: .infinity)
+                                
                         }
+                        
+                        HStack {
+                            Spacer()
+                            
+                            Button {
+                                withAnimation(.spring()) {
+                                    detailsExpand = false
+                                }
+                                
+                            } label: {
+                                Image(systemName: "xmark.circle.fill")
+                                    .font(.largeTitle)
+                                    .foregroundColor(.gray)
+                                    .contentShape(Rectangle())
+                                
+                            }
+                            .buttonStyle(.plain)
+                            
+                        }
+                        .padding()
                     }
+                    
+                    Text(desc)
+                        .font(.title)
+                        .padding()
+                    
+                    Text(desc)
+                        .font(.title)
+                        .padding()
                 }
                 
             }
-            
-        }
-
-         .transition(.asymmetric(insertion: .scale(scale: 1.5), removal: .opacity))
-         .matchedGeometryEffect(id: "card", in: personNamespace)
-         .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .center)
-         .background()
-         .safeAreaInset(edge: .top) {}
+             .transition(.asymmetric(insertion: .scale(scale: 1.5), removal: .opacity))
+             .matchedGeometryEffect(id: "card", in: personNamespace)
+             
+             .background(.ultraThinMaterial)
+             .clipShape(RoundedRectangle(cornerRadius: 16))
+             .safeAreaInset(edge: .top) {
+                 Color.clear.frame(height: 64)
+                 
+             }
     }
     
     var body: some View {
@@ -125,22 +122,24 @@ struct ListCardView: View {
             ZStack(alignment: .top) {
                 
                 itemList
-                
+
                 if detailsExpand, let person = selectedPerson {
                     expandView(person)
+                        .padding(48)
                 }
-
                 
+//                expandView(items.first!)
+//                    .padding(32)
+//
+//
             }
         }.navigationViewStyle(.stack)
             
     }
 }
 
-struct SwiftUIView_Previews: PreviewProvider {
+struct ListCardVersion2View_Previews: PreviewProvider {
     static var previews: some View {
-        ListCardView(detailsExpand: true, selectedPerson: Person(name: "Tim Cook", position: "CEO", company: "Apple", description: "Apple ", imageString: "timcook"))
-        
-        ListCardView(detailsExpand: false)
+        ListCardVersion2View()
     }
 }

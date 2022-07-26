@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		21675F32288980F9004AE923 /* ListCardVersion2View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21675F31288980F9004AE923 /* ListCardVersion2View.swift */; };
+		21B380A7288F6082002AAE19 /* ListAndGalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B380A6288F6082002AAE19 /* ListAndGalleryView.swift */; };
 		21F6CC4B2888D0BD0079E70E /* MatchGeometryPracticeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F6CC4A2888D0BD0079E70E /* MatchGeometryPracticeApp.swift */; };
 		21F6CC4D2888D0BD0079E70E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F6CC4C2888D0BD0079E70E /* ContentView.swift */; };
 		21F6CC4F2888D0BF0079E70E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21F6CC4E2888D0BF0079E70E /* Assets.xcassets */; };
@@ -15,6 +17,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		21675F31288980F9004AE923 /* ListCardVersion2View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCardVersion2View.swift; sourceTree = "<group>"; };
+		21B380A6288F6082002AAE19 /* ListAndGalleryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListAndGalleryView.swift; sourceTree = "<group>"; };
 		21F6CC472888D0BD0079E70E /* MatchGeometryPractice.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MatchGeometryPractice.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		21F6CC4A2888D0BD0079E70E /* MatchGeometryPracticeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchGeometryPracticeApp.swift; sourceTree = "<group>"; };
 		21F6CC4C2888D0BD0079E70E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -56,6 +60,8 @@
 				21F6CC4A2888D0BD0079E70E /* MatchGeometryPracticeApp.swift */,
 				21F6CC4C2888D0BD0079E70E /* ContentView.swift */,
 				21F6CC5828893F880079E70E /* ListCardView.swift */,
+				21675F31288980F9004AE923 /* ListCardVersion2View.swift */,
+				21B380A6288F6082002AAE19 /* ListAndGalleryView.swift */,
 				21F6CC4E2888D0BF0079E70E /* Assets.xcassets */,
 				21F6CC502888D0BF0079E70E /* Preview Content */,
 			);
@@ -141,7 +147,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				21F6CC4D2888D0BD0079E70E /* ContentView.swift in Sources */,
+				21B380A7288F6082002AAE19 /* ListAndGalleryView.swift in Sources */,
 				21F6CC4B2888D0BD0079E70E /* MatchGeometryPracticeApp.swift in Sources */,
+				21675F32288980F9004AE923 /* ListCardVersion2View.swift in Sources */,
 				21F6CC5928893F880079E70E /* ListCardView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -279,6 +287,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -308,6 +317,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

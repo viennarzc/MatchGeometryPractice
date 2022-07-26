@@ -20,6 +20,16 @@ struct MatchGeometryPracticeApp: App {
                     .tabItem {
                         Text("List Card")
                     }
+                
+                ListCardVersion2View()
+                    .tabItem {
+                        Text("List Card Version 2")
+                    }
+                
+                ListAndGalleryView()
+                    .tabItem {
+                        Text("List and gallery")
+                    }
             
             }
         }
